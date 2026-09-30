@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: canary-app-v2
+  namespace: canary-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: canary-app
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: canary-app
+        version: v2
+    spec:
+      containers:
+        - name: canary-app
+          image: canary-app:v2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
